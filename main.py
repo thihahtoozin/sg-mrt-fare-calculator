@@ -1,4 +1,5 @@
 import os
+from api_request import calc_distance_mrt
 
 ew_file: str = "EW.txt"
 ns_file: str = "NS.txt"
@@ -185,6 +186,9 @@ def main():
     print(f"Ending station : {end_station_name}")
     num_h = calc_num_hops(start_station_code, end_station_code)
     print(f"Num hops : {num_h}")
+    distance, duration = calc_distance_mrt(start_station_name, end_station_name)
+    print(f"Distance : {distance:.2f}")
+    print(f"Duration : {duration:.2f}")
 
 if __name__ == '__main__':
     main()
