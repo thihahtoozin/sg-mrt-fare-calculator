@@ -114,7 +114,6 @@ def get_station(station: str, line='EW') -> tuple:
     station_line: str = '';
     station_code: str = '';
     station_name: str = '';
-    interchange: bool = False;
 
     if station.isdigit(): # index number
         # find `station_name` and `station_code`
@@ -150,6 +149,28 @@ def get_station(station: str, line='EW') -> tuple:
 
     return (station_index, station_line, station_code, station_name)
 
+def calc_num_hops(start_station: str, end_station: str) -> int: # calculate and returns number of hops between the two stations
+    global ew_ns_intchgs
+    num_hops: int = 0
+    start_station_index: int = int(start_station[2:])
+    end_station_index: int = int(end_station[2:])
+    possible_hops: list = []
+
+    if start_station[:2] == end_station[:2]: # if the start and destination stations are on the same line
+        num_hops = abs(start_station_index - end_station_index)
+    else: # on different line
+        start_station_name = get_station(start_station)[-1]
+        end_station_name = get_station(end_station)[-1]
+        
+        start_line = 0 if start_station[:2] == 'EW' else 1 # 0 for EW line, 1 for NS line
+        for intchg in ew_ns_intchgs_lst:
+            x = abs(int(ew_ns_intchgs[intchg][start_line][2:]) - int(start_station[2:]))
+            y = abs(int(ew_ns_intchgs[intchg][int(not start_line)][2:]) - int(end_station[2:]))
+            possible_hops.append(x+y)
+        num_hops = min(possible_hops)
+        
+    return num_hops
+
 def main():
     clear_screen()
     read_file()
@@ -162,6 +183,8 @@ def main():
 
     print(f"Starting station : {start_station_name}")
     print(f"Ending station : {end_station_name}")
+    num_h = calc_num_hops(start_station_code, end_station_code)
+    print(f"Num hops : {num_h}")
 
 if __name__ == '__main__':
     main()
