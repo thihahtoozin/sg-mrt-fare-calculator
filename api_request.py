@@ -57,3 +57,4 @@ if __name__ == '__main__':
     distance, duration = calc_distance_mrt("City Hall", "Bugis")
     print(f"Distance: {distance:.2f}km")
     print(f"Duration: {duration:.2f}min")
+
