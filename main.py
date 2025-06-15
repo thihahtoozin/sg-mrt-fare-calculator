@@ -1,68 +1,86 @@
 import os
+from pprint import pprint
+from display_stations import combine_lines, display
 from api_request import calc_distance_mrt
 
-ew_file: str = "EW.txt"
-ns_file: str = "NS.txt"
+#ew_file: str = "config/EW.txt"
+#ns_file: str = "config/NS.txt"
 
-ew_stations: list = [] # Green Line EW33 to EW1
-ns_stations: list = [] # Red Line   NS1  to NS28
-ew_ns_intchgs_lst: list = [] # list of interchanges across EW and NS lines
-ew_ns_intchgs: dict = {} # record of interchanges across EW and NS lines
+stations: dict = {}
+intchgs: dict = {}
+combined_lines: list = []
+lines: list = []
+
+#ew_stations: list = [] # Green Line EW33 to EW1
+#ns_stations: list = [] # Red Line   NS1  to NS28
+#ew_ns_display: list = [] # Combined List of Green Line and Red Line
+
+#ew_ns_intchgs_lst: list = [] # list of interchanges across EW and NS lines
+#ew_ns_intchgs: dict = {} # record of interchanges across EW and NS lines
 
 # clearing screen by detecting underlying operating system
 def clear_screen() -> None:
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def read_file() -> None: # read files and fill up our lists (ew_stations, ns_stations, ew_ns_intchgs)
+def read_files() -> None: # read files and fill up our dicts `stations` and `intchgs` ,and list `combined_lines` and `lines`
 
     # declaring global variables to avoid creating local variables with the same name
-    global ew_stations
-    global ns_stations
-    global ew_ns_intchgs_lst
-    global ew_ns_intchgs
+    global stations
+    global intchgs
+    global combined_lines
+    global lines
+    #global ew_ns_intchgs_lst
+    #global ew_ns_intchgs
 
-    # reading the stations and assigning them into `ew_stations`
-    with open(ew_file, "r") as ew_f:
-        ew_stations = [f.strip() for f in ew_f.readlines() if f != '\n']
+    files = os.listdir('config/')[:2] # [:2] limits to two files
+    lines = [ l.split('.')[0] for l in files ]
+    #print(lines)
+    for file in files:
+        line = file.split('.')[0].upper()
+        with open(file, "r") as ew_f:
+            stations[line] = [f.strip() for f in ew_f.readlines() if f != '\n']
 
-    # reading the stations and assigning them into `ns_stations`
-    with open(ns_file, "r") as ns_f:
-        ns_stations = [f.strip() for f in ns_f.readlines() if f != '\n']
+    intchgs_lst = list(set(stations[lines[0]]) & set(stations[lines[1]])) # interchanges between 2 lines (only works with two lines)
+    for intchg in intchgs_lst:
+        first_index = stations[lines[0]].index(intchg)+1
+        second_index = stations[lines[1]].index(intchg)+1
+        first_code = f"{lines[0]}{first_index}"
+        second_code = f"{lines[1]}{second_index}"
+        intchgs[intchg] = (first_code, second_code)
 
-    # find interchanges between two lines
-    ew_ns_intchgs_lst = list(set(ns_stations) & set(ew_stations))
-    print(ew_ns_intchgs_lst)
-    for station in ew_ns_intchgs_lst:
-        ew_index = ew_stations.index(station)+1
-        ns_index = ns_stations.index(station)+1
-        ew_code = f"EW{ew_index}"
-        ns_code = f"NS{ns_index}"
-        ew_ns_intchgs[station] = (ew_code, ns_code)
-    print(ew_ns_intchgs)
+    combined_lines = combine_lines(lines[0], stations[lines[0]], lines[1], stations[lines[1]])
 
-def prompt_stations(stations: list, line: str = "EW") -> str: # this function returns station code as a string
+    #print(intchgs_lst)
+    #print(intchgs)
+    # intchgs = { 'City Hall': (EW13, NS10), 'Raffle Place': (EW14,NS9) }
+
+def prompt_stations(stations: list, line: str = 'EW') -> str: # this function returns station code as a string
 
     # initializing the return value as empty string
     result: str = ''
 
     # Displaying a list of stations along with station codes
-    for station_i in range(len(stations)):
-        print(f"[{line}{station_i + 1}]:{stations[station_i]}")
+    display(stations)
+    #for station_i in range(len(stations)):
+    #    print(f"[{line}{station_i + 1}]:{stations[station_i]}")
 
     # getting user input and validating
     stations = [s.lower() for s in stations]
-    user_input = input("Enter station name or number to choose('b' for back) : ").strip()
+    user_input = input("Enter station name or number to choose : ").strip()
     user_input = user_input.lower()
     print(user_input)
     
     if user_input.isdigit(): # for index number
         print("Digit")
-        result = line + user_input
+        #result = line + user_input
+        #get the name on the combined list using the index number
+        #search for both lists on the stations dict
+        #if find on stations[line[0]] => {line[0]}{user_input}, if find on red, if find on both, if find on none
     elif user_input[:2].isalpha() and user_input[2:].isdigit(): # for station code
         print("Station Code")    
         result = user_input[2:]
-    elif user_input == 'b' or user_input == 'back':
-        pass # letting the return value remain zero(0).
+    #elif user_input == 'b' or user_input == 'back':
+    #    pass # letting the return value remain zero(0).
     else: # for string
         print("String")
         result = line + str(stations.index(user_input.lower()) + 1)
@@ -174,7 +192,7 @@ def calc_num_hops(start_station: str, end_station: str) -> int: # calculate and 
 
 def main():
     clear_screen()
-    read_file()
+    read_files()
 
     start_station_code: str = prompt(True) # starting prompt
     end_station_code: str = prompt(False)  # ending prompt

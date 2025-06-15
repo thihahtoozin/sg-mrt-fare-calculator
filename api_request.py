@@ -1,4 +1,5 @@
 import requests
+#from pprint import pprint
 
 api_key = "5b3ce3597851110001cf624812782a91d0ba4c469745e9af84f34936"
 
@@ -44,6 +45,7 @@ def calc_distance_mrt(start: str, end: str):
     
     if response.status_code == 200:
         data = response.json()
+        #pprint(data)
         distance = data['routes'][0]['summary']['distance']/1000 # m -> km
         duration = data['routes'][0]['summary']['duration']/60 # s -> min
     else:
