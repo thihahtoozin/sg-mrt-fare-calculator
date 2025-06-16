@@ -1,6 +1,6 @@
 # Singapore MRT Fare Calculator
 
-![](https://journey.smrt.com.sg/static/journey/img/network_map_2025_January.png)
+![](https://github.com/thihahtoozin/sg-mrt-fare-calculator/images/system_map.png)
 
 ## Introduction
 This project helps you calculate the shortest route between two MRT stations in Singapore and supports multiple MRT lines, including interchanges.
@@ -13,7 +13,7 @@ This project helps you calculate the shortest route between two MRT stations in 
 ## Get Started
 Clone this repository
 ```
-git clone https://github.com/yourusername/sg-mrt-route-finder.git
+git clone https://github.com/thihahtoozin/sg-mrt-fare-calculator.git
 cd sg-mrt-route-finder
 ```
 
@@ -46,4 +46,3 @@ python3 main.py
 - [OpenStreetMap Singapore Rail Data](https://www.openstreetmap.org/)
 - [Singapore MRT Station Codes and Data](https://www.transitlink.com.sg/)
 - [OpenRouteService API](https://openrouteservice.org)
-- [For image in this file](https://journey.smrt.com.sg/static/journey/img/network_map_2025_January.png)
