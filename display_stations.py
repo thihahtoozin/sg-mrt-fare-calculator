@@ -78,6 +78,7 @@ def prompt_question(mrt_struct: dict, c_stations_l: list, starting: bool = True)
         for line_struct in mrt_struct.values():
             if user_input in line_struct['codes']:
                 response_code = user_input
+                return response_code
         return '-1'
 
     else: # for string
