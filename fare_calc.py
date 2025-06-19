@@ -1,45 +1,58 @@
-#import datetime
+from datetime import datetime
 
-def load_prices(filename: str):
+filename = 'config/fare.conf'
+
+def load_prices(filename: str) -> list:
+    ranges = [] # list of tuples (float, float, float)
     with open(filename, 'r') as f:
         lines = [ lines.strip() for lines in f.readlines() if lines != "\n" ]
-        print(lines)
         for line in lines:
-            print(line)
+            range_part, price = line.split()
+            low, high = range_part.split('-')
 
-def fare_calc(distance: float) -> float: # calculate normal fare (without any discount applied)
-   return cent
+            # Typecasting
+            price = float(price)
+            low = float(low) if low != '' else 0
+            high = float(high) if high != '' else float('inf')
 
-def discount_calc(): # take discount conditions (day and time) (do not mutually exclusive)
-    pass
+            ranges.append((low,high,price))
+    
+    return ranges
 
+def fare_calc(ranges:list, distance: float, discount_percent: float) -> float: # calculate normal fare (without any discount applied)
+    for low, high, price in ranges:
+        if low <= round(distance,1) <= high:
+            return price * (1 - discount_percent)
+    return None
+
+def discount_calc() -> float: # take discount conditions (day and time) (do not mutually exclusive)
+    discount_percent: float = 0.0
+    now = datetime.now()
+    weekday = now.weekday() # 0-5 weekdays 5,6 weekends
+    hour = now.hour
+    minute = now.minute
+    time_in_mins = hour * 60 + minute
+    # discount on Weekdays 0:5
+    if 0 <= weekday < 5:
+        if time_in_mins < (7 * 60 + 45):   # early morning before 7:45
+            discount_percent += 0.15 # 15%
+        elif (9 * 60 + 30) < time_in_mins < (17*60): # morning after peak hour(off-peak hour discount) 9:30 - 17:30
+            discount_percent += 0.10 # 10%
+        elif time_in_mins > (20 * 60 + 0): # end of the day discount after 20:00
+            discount_percent += 0.10 # 10%
+        else:
+            pass
+    else: # no discount on Weekends
+        pass
+
+    return discount_percent
 
 if __name__ == '__main__':
-    filename = 'config/fare.conf'
-    load_prices(filename)
+    ranges = load_prices(filename)
+    distance = float(input("Enter distance : ").strip()) 
+    discount_percent = discount_calc()
+    print(f"Discount : {discount_percent * 100}%")
+    price = fare_calc(ranges, distance, discount_percent)
+    print(f"Distance : {distance}")
+    print(f"Price : {price}")
 
-
-'''
-config/lines
-'''
-'''
-config/fare.conf
-
-[range(kg)] [fare($)]
--0.32       0.52
-3.3-4.2     0.57
-4.3-5.2     0.63
-5.3-6.2     0.68
-6.3-7.2     0.71
-7.2-        0.74
-'''
-
-'''
-separate file for api key
-Include how to add api key on README.md
-'''
-
-
-'''
-features show routes and stations in order 
-'''

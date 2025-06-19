@@ -1,7 +1,13 @@
 import requests
 #from pprint import pprint
 
-api_key = "5b3ce3597851110001cf624812782a91d0ba4c469745e9af84f34936"
+api_key: str = ''
+api_key_file: str = 'config/api_key.txt'
+
+with open(api_key_file) as f:
+    api_key = [ line.strip() for line in f.readlines() if line != '\n' ][0]
+#api_key = '5b3ce3597851110001cf624812782a91d0ba4c469745e9af84f34936'
+print(api_key)
 
 def get_coordinates(station_name: str) -> list:
     url = "https://api.openrouteservice.org/geocode/search"

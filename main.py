@@ -2,9 +2,11 @@ import os
 from pprint import pprint
 from display_stations import *
 from api_request import calc_distance_mrt
+from fare_calc import *
 
 # static variables
 config_dir: str = 'config/mrt_lines/'
+price_scheme: str = 'config/fare.conf'
 
 # dynamic variables (these variables are dynamically updated by data read under `config/` directory)
 mrt_struct: dict = {}           # stores station informations 
@@ -154,8 +156,16 @@ def main():
     num_h = len(path)-1
     print(f"Num hops : {num_h}")
     distance, duration = calc_distance_mrt(start_station_name, end_station_name)
+    distance = round(distance,1)
+
+    discount_percent = discount_calc()
+    price_ranges: list = load_prices(price_scheme)
+    price = fare_calc(price_ranges, distance, discount_percent)
+
     print(f"Distance : {distance:.2f}")
     print(f"Duration : {duration:.2f}")
+    print(f"Discount : {discount_percent * 100}%")
+    print(f"Price : {price:.2f}")
 
 if __name__ == '__main__':
     main()
