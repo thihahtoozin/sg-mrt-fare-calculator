@@ -16,7 +16,7 @@ def combine_lines(mrt_struct: dict) -> list:
 
 def display(combined_lines: list):
     midpoint: int = (len(combined_lines)+1) // 2
-    print(midpoint)
+    #print(midpoint)
     col1: list = combined_lines[:midpoint]
     col2: list = combined_lines[midpoint:]
     
@@ -58,7 +58,7 @@ def prompt_question(mrt_struct: dict, c_stations_l: list, starting: bool = True)
     # INVALID STATION CODE - NEEDED
     # INVALID STATION NAME - NEEDED
     if user_input.isdigit(): # for index number
-        print("Digit")
+        #print("Digit")
         try:
             user_input = c_stations_l[int(user_input) - 1].split()[1:-1] 
             user_input = ' '.join(user_input)
@@ -74,7 +74,7 @@ def prompt_question(mrt_struct: dict, c_stations_l: list, starting: bool = True)
             return '-1'
 
     elif user_input[:2].isalpha() and user_input[2:].isdigit(): # for station code
-        print("Station Code")
+        #print("Station Code")
         for line_struct in mrt_struct.values():
             if user_input in line_struct['codes']:
                 response_code = user_input
@@ -82,7 +82,7 @@ def prompt_question(mrt_struct: dict, c_stations_l: list, starting: bool = True)
         return '-1'
 
     else: # for string
-        print("String")
+        #print("String")
         for line, line_struct in mrt_struct.items():
             path = [ s.upper() for s in line_struct['path'] ]
             #print(path)
@@ -91,7 +91,7 @@ def prompt_question(mrt_struct: dict, c_stations_l: list, starting: bool = True)
                 return response_code
         return '-1'
 
-    print(response_code)
+    #print(response_code)
     return response_code # response code for error is '-1'
 
 if __name__ == '__main__':

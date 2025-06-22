@@ -1,0 +1,300 @@
+from pprint import pprint 
+
+mrt_struct = {'TE': {'start_index': 1, 'path': ['WOODLANDS NORTH', 'WOODLANDS', 'WOODLANDS SOUTH', 'SPRINGLEAF', 'LENTOR', 'MAYFLOWER', 'BRIGHT HILL', 'UPPER THOMSON', 'CALDECOTT', 'MOUNT PLEASANT', 'STEVENS', 'NAPIER', 'ORCHARD BOULEVARD', 'ORCHARD', 'GREAT WORLD', 'HAVELOCK', 'OUTRAM PARK', 'MAXWELL', 'SHENTON WAY', 'MARINA BAY', 'GARDENS BY THE BAY', "FOUNDERS' MEMORIAL", 'TANJONG RHU', 'KATONG PARK', 'TANJONG KATONG', 'MARINE PARADE', 'MARINE TERRACE', 'SIGLAP', 'BAYSHORE', 'BEDOK SOUTH', 'SUNGEI BEDOK'], 'codes': ['TE1', 'TE2', 'TE3', 'TE4', 'TE5', 'TE6', 'TE7', 'TE8', 'TE9', 'TE10', 'TE11', 'TE12', 'TE13', 'TE14', 'TE15', 'TE16', 'TE17', 'TE18', 'TE19', 'TE20', 'TE21', 'TE22', 'TE23', 'TE24', 'TE25', 'TE26', 'TE27', 'TE28', 'TE29', 'TE30', 'TE31']}, 'CC': {'start_index': 1, 'path': ['DHOBY GHAUT', 'BRAS BASAH', 'ESPLANADE', 'PROMENADE', 'NICOLL HIGHWAY', 'STADIUM', 'MOUNTBATTEN', 'DAKOTA', 'PAYA LEBAR', 'MACPHERSON', 'TAI SENG', 'BARTLEY', 'SERANGOON', 'LORONG CHUAN', 'BISHAN', 'MARYMOUNT', 'CALDECOTT', 'BOTANIC GARDENS', 'FARRER ROAD', 'HOLLAND VILLAGE', 'BUONA VISTA', 'ONE-NORTH', 'KENT RIDGE', 'HAW PAR VILLA', 'PASIR PANJANG', 'LABRADOR PARK', 'TELOK BLANGAH', 'HARBOURFRONT'], 'codes': ['CC1', 'CC2', 'CC3', 'CC4', 'CC5', 'CC6', 'CC7', 'CC8', 'CC9', 'CC10', 'CC11', 'CC12', 'CC13', 'CC14', 'CC15', 'CC16', 'CC17', 'CC18', 'CC19', 'CC20', 'CC21', 'CC22', 'CC23', 'CC24', 'CC25', 'CC26', 'CC27', 'CC28']}, 'CG': {'start_index': 0, 'path': ['TANAH MERAH', 'EXPO', 'CHANGI AIRPORT'], 'codes': ['CG0', 'CG1', 'CG2']}, 'DT': {'start_index': 1, 'path': ['BUKIT PANJANG', 'CASHEW', 'HILLVIEW', 'BEAUTY WORLD', 'KING ALBERT PARK', 'SIXTH AVENUE', 'TAN KAH KEE', 'BOTANIC GARDENS', 'STEVENS', 'NEWTON', 'LITTLE INDIA', 'ROCHOR', 'BUGIS', 'PROMENADE', 'BAYFRONT', 'DOWNTOWN', 'TELOK AYER', 'CHINATOWN', 'FORT CANNING', 'BENCOOLEN', 'JALAN BESAR', 'BENDEMEER', 'GEYLANG BAHRU', 'MATTAR', 'MACPHERSON', 'UBI', 'KAKI BUKIT', 'BEDOK NORTH', 'BEDOK RESERVOIR', 'TAMPINES WEST', 'TAMPINES', 'TAMPINES EAST', 'UPPER CHANGI', 'EXPO'], 'codes': ['DT1', 'DT2', 'DT3', 'DT4', 'DT5', 'DT6', 'DT7', 'DT8', 'DT9', 'DT10', 'DT11', 'DT12', 'DT13', 'DT14', 'DT15', 'DT16', 'DT17', 'DT18', 'DT19', 'DT20', 'DT21', 'DT22', 'DT23', 'DT24', 'DT25', 'DT26', 'DT27', 'DT28', 'DT29', 'DT30', 'DT31', 'DT32', 'DT33', 'DT34']}, 'NS': {'start_index': 1, 'path': ['JURONG EAST', 'BUKIT BATOK', 'BUKIT GOMBAK', 'CHOA CHU KANG', 'YEW TEE', 'KRANJI', 'MARSILING', 'WOODLANDS', 'ADMIRALTY', 'SEMBAWANG', 'CANBERRA', 'YISHUN', 'KHATIB', 'YIO CHU KANG', 'ANG MO KIO', 'BISHAN', 'BRADDELL', 'TOA PAYOH', 'NOVENA', 'NEWTON', 'ORCHARD', 'SOMERSET', 'DHOBY GHAUT', 'CITY HALL', 'RAFFLES PLACE', 'MARINA BAY', 'MARINA SOUTH PIER'], 'codes': ['NS1', 'NS2', 'NS3', 'NS4', 'NS5', 'NS6', 'NS7', 'NS8', 'NS9', 'NS10', 'NS11', 'NS12', 'NS13', 'NS14', 'NS15', 'NS16', 'NS17', 'NS18', 'NS19', 'NS20', 'NS21', 'NS22', 'NS23', 'NS24', 'NS25', 'NS26', 'NS27']}, 'NE': {'start_index': 1, 'path': ['HARBOURFRONT', 'OUTRAM PARK', 'CHINATOWN', 'CLARK QUAY', 'DHOBY GHAUT', 'LITTLE INDIA', 'FARRER PARK', 'BOON KENG', 'POTONG PASIR', 'WOODLEIGH', 'SERANGOON', 'KOVAN', 'HOUGANG', 'BUANGKOK', 'SENGKANG', 'PUNGGOL'], 'codes': ['NE1', 'NE2', 'NE3', 'NE4', 'NE5', 'NE6', 'NE7', 'NE8', 'NE9', 'NE10', 'NE11', 'NE12', 'NE13', 'NE14', 'NE15', 'NE16']}, 'EW': {'start_index': 1, 'path': ['PASIR RIS', 'TAMPINES', 'SIMEI', 'TANAH MERAH', 'BEDOK', 'KEMBANGAN', 'EUNOS', 'PAYA LEBAR', 'ALJUNIED', 'KALLANG', 'LAVENDER', 'BUGIS', 'CITY HALL', 'RAFFLES PLACE', 'TANJONG PAGAR', 'OUTRAM PARK', 'TIONG BAHRU', 'REDHILL', 'QUEENSTOWN', 'COMMONWEALTH', 'BUONA VISTA', 'DOVER', 'CLEMENTI', 'JURONG EAST', 'CHINESE GARDEN', 'LAKESIDE', 'BOON LAY', 'PIONEER', 'JOO KOON', 'GUL CIRCLE', 'TUAS CRESCENT', 'TUAS WEST ROAD', 'TUAS LINK'], 'codes': ['EW1', 'EW2', 'EW3', 'EW4', 'EW5', 'EW6', 'EW7', 'EW8', 'EW9', 'EW10', 'EW11', 'EW12', 'EW13', 'EW14', 'EW15', 'EW16', 'EW17', 'EW18', 'EW19', 'EW20', 'EW21', 'EW22', 'EW23', 'EW24', 'EW25', 'EW26', 'EW27', 'EW28', 'EW29', 'EW30', 'EW31', 'EW32', 'EW33']}}
+
+graph = {'ADMIRALTY': ['WOODLANDS', 'SEMBAWANG'],
+ 'ALJUNIED': ['PAYA LEBAR', 'KALLANG'],
+ 'ANG MO KIO': ['YIO CHU KANG', 'BISHAN'],
+ 'BARTLEY': ['TAI SENG', 'SERANGOON'],
+ 'BAYFRONT': ['PROMENADE', 'DOWNTOWN'],
+ 'BAYSHORE': ['SIGLAP', 'BEDOK SOUTH'],
+ 'BEAUTY WORLD': ['HILLVIEW', 'KING ALBERT PARK'],
+ 'BEDOK': ['TANAH MERAH', 'KEMBANGAN'],
+ 'BEDOK NORTH': ['KAKI BUKIT', 'BEDOK RESERVOIR'],
+ 'BEDOK RESERVOIR': ['BEDOK NORTH', 'TAMPINES WEST'],
+ 'BEDOK SOUTH': ['BAYSHORE', 'SUNGEI BEDOK'],
+ 'BENCOOLEN': ['FORT CANNING', 'JALAN BESAR'],
+ 'BENDEMEER': ['JALAN BESAR', 'GEYLANG BAHRU'],
+ 'BISHAN': ['LORONG CHUAN', 'MARYMOUNT', 'ANG MO KIO', 'BRADDELL'],
+ 'BOON KENG': ['FARRER PARK', 'POTONG PASIR'],
+ 'BOON LAY': ['LAKESIDE', 'PIONEER'],
+ 'BOTANIC GARDENS': ['CALDECOTT', 'FARRER ROAD', 'TAN KAH KEE', 'STEVENS'],
+ 'BRADDELL': ['BISHAN', 'TOA PAYOH'],
+ 'BRAS BASAH': ['DHOBY GHAUT', 'ESPLANADE'],
+ 'BRIGHT HILL': ['MAYFLOWER', 'UPPER THOMSON'],
+ 'BUANGKOK': ['HOUGANG', 'SENGKANG'],
+ 'BUGIS': ['ROCHOR', 'PROMENADE', 'LAVENDER', 'CITY HALL'],
+ 'BUKIT BATOK': ['JURONG EAST', 'BUKIT GOMBAK'],
+ 'BUKIT GOMBAK': ['BUKIT BATOK', 'CHOA CHU KANG'],
+ 'BUKIT PANJANG': ['CASHEW'],
+ 'BUONA VISTA': ['HOLLAND VILLAGE', 'ONE-NORTH', 'COMMONWEALTH', 'DOVER'],
+ 'CALDECOTT': ['UPPER THOMSON',
+               'MOUNT PLEASANT',
+               'MARYMOUNT',
+               'BOTANIC GARDENS'],
+ 'CANBERRA': ['SEMBAWANG', 'YISHUN'],
+ 'CASHEW': ['BUKIT PANJANG', 'HILLVIEW'],
+ 'CHANGI AIRPORT': ['EXPO'],
+ 'CHINATOWN': ['TELOK AYER', 'FORT CANNING', 'OUTRAM PARK', 'CLARK QUAY'],
+ 'CHINESE GARDEN': ['JURONG EAST', 'LAKESIDE'],
+ 'CHOA CHU KANG': ['BUKIT GOMBAK', 'YEW TEE'],
+ 'CITY HALL': ['DHOBY GHAUT', 'RAFFLES PLACE', 'BUGIS'],
+ 'CLARK QUAY': ['CHINATOWN', 'DHOBY GHAUT'],
+ 'CLEMENTI': ['DOVER', 'JURONG EAST'],
+ 'COMMONWEALTH': ['QUEENSTOWN', 'BUONA VISTA'],
+ 'DAKOTA': ['MOUNTBATTEN', 'PAYA LEBAR'],
+ 'DHOBY GHAUT': ['BRAS BASAH',
+                 'SOMERSET',
+                 'CITY HALL',
+                 'CLARK QUAY',
+                 'LITTLE INDIA'],
+ 'DOVER': ['BUONA VISTA', 'CLEMENTI'],
+ 'DOWNTOWN': ['BAYFRONT', 'TELOK AYER'],
+ 'ESPLANADE': ['BRAS BASAH', 'PROMENADE'],
+ 'EUNOS': ['KEMBANGAN', 'PAYA LEBAR'],
+ 'EXPO': ['TANAH MERAH', 'CHANGI AIRPORT', 'UPPER CHANGI'],
+ 'FARRER PARK': ['LITTLE INDIA', 'BOON KENG'],
+ 'FARRER ROAD': ['BOTANIC GARDENS', 'HOLLAND VILLAGE'],
+ 'FORT CANNING': ['CHINATOWN', 'BENCOOLEN'],
+ "FOUNDERS' MEMORIAL": ['GARDENS BY THE BAY', 'TANJONG RHU'],
+ 'GARDENS BY THE BAY': ['MARINA BAY', "FOUNDERS' MEMORIAL"],
+ 'GEYLANG BAHRU': ['BENDEMEER', 'MATTAR'],
+ 'GREAT WORLD': ['ORCHARD', 'HAVELOCK'],
+ 'GUL CIRCLE': ['JOO KOON', 'TUAS CRESCENT'],
+ 'HARBOURFRONT': ['TELOK BLANGAH', 'OUTRAM PARK'],
+ 'HAVELOCK': ['GREAT WORLD', 'OUTRAM PARK'],
+ 'HAW PAR VILLA': ['KENT RIDGE', 'PASIR PANJANG'],
+ 'HILLVIEW': ['CASHEW', 'BEAUTY WORLD'],
+ 'HOLLAND VILLAGE': ['FARRER ROAD', 'BUONA VISTA'],
+ 'HOUGANG': ['KOVAN', 'BUANGKOK'],
+ 'JALAN BESAR': ['BENCOOLEN', 'BENDEMEER'],
+ 'JOO KOON': ['PIONEER', 'GUL CIRCLE'],
+ 'JURONG EAST': ['BUKIT BATOK', 'CLEMENTI', 'CHINESE GARDEN'],
+ 'KAKI BUKIT': ['UBI', 'BEDOK NORTH'],
+ 'KALLANG': ['ALJUNIED', 'LAVENDER'],
+ 'KATONG PARK': ['TANJONG RHU', 'TANJONG KATONG'],
+ 'KEMBANGAN': ['BEDOK', 'EUNOS'],
+ 'KENT RIDGE': ['ONE-NORTH', 'HAW PAR VILLA'],
+ 'KHATIB': ['YISHUN', 'YIO CHU KANG'],
+ 'KING ALBERT PARK': ['BEAUTY WORLD', 'SIXTH AVENUE'],
+ 'KOVAN': ['SERANGOON', 'HOUGANG'],
+ 'KRANJI': ['YEW TEE', 'MARSILING'],
+ 'LABRADOR PARK': ['PASIR PANJANG', 'TELOK BLANGAH'],
+ 'LAKESIDE': ['CHINESE GARDEN', 'BOON LAY'],
+ 'LAVENDER': ['KALLANG', 'BUGIS'],
+ 'LENTOR': ['SPRINGLEAF', 'MAYFLOWER'],
+ 'LITTLE INDIA': ['NEWTON', 'ROCHOR', 'DHOBY GHAUT', 'FARRER PARK'],
+ 'LORONG CHUAN': ['SERANGOON', 'BISHAN'],
+ 'MACPHERSON': ['PAYA LEBAR', 'TAI SENG', 'MATTAR', 'UBI'],
+ 'MARINA BAY': ['SHENTON WAY',
+                'GARDENS BY THE BAY',
+                'RAFFLES PLACE',
+                'MARINA SOUTH PIER'],
+ 'MARINA SOUTH PIER': ['MARINA BAY'],
+ 'MARINE PARADE': ['TANJONG KATONG', 'MARINE TERRACE'],
+ 'MARINE TERRACE': ['MARINE PARADE', 'SIGLAP'],
+ 'MARSILING': ['KRANJI', 'WOODLANDS'],
+ 'MARYMOUNT': ['BISHAN', 'CALDECOTT'],
+ 'MATTAR': ['GEYLANG BAHRU', 'MACPHERSON'],
+ 'MAXWELL': ['OUTRAM PARK', 'SHENTON WAY'],
+ 'MAYFLOWER': ['LENTOR', 'BRIGHT HILL'],
+ 'MOUNT PLEASANT': ['CALDECOTT', 'STEVENS'],
+ 'MOUNTBATTEN': ['STADIUM', 'DAKOTA'],
+ 'NAPIER': ['STEVENS', 'ORCHARD BOULEVARD'],
+ 'NEWTON': ['STEVENS', 'LITTLE INDIA', 'NOVENA', 'ORCHARD'],
+ 'NICOLL HIGHWAY': ['PROMENADE', 'STADIUM'],
+ 'NOVENA': ['TOA PAYOH', 'NEWTON'],
+ 'ONE-NORTH': ['BUONA VISTA', 'KENT RIDGE'],
+ 'ORCHARD': ['ORCHARD BOULEVARD', 'GREAT WORLD', 'NEWTON', 'SOMERSET'],
+ 'ORCHARD BOULEVARD': ['NAPIER', 'ORCHARD'],
+ 'OUTRAM PARK': ['HAVELOCK',
+                 'MAXWELL',
+                 'HARBOURFRONT',
+                 'CHINATOWN',
+                 'TANJONG PAGAR',
+                 'TIONG BAHRU'],
+ 'PASIR PANJANG': ['HAW PAR VILLA', 'LABRADOR PARK'],
+ 'PASIR RIS': ['TAMPINES'],
+ 'PAYA LEBAR': ['DAKOTA', 'MACPHERSON', 'EUNOS', 'ALJUNIED'],
+ 'PIONEER': ['BOON LAY', 'JOO KOON'],
+ 'POTONG PASIR': ['BOON KENG', 'WOODLEIGH'],
+ 'PROMENADE': ['ESPLANADE', 'NICOLL HIGHWAY', 'BUGIS', 'BAYFRONT'],
+ 'PUNGGOL': ['SENGKANG'],
+ 'QUEENSTOWN': ['REDHILL', 'COMMONWEALTH'],
+ 'RAFFLES PLACE': ['CITY HALL', 'MARINA BAY', 'TANJONG PAGAR'],
+ 'REDHILL': ['TIONG BAHRU', 'QUEENSTOWN'],
+ 'ROCHOR': ['LITTLE INDIA', 'BUGIS'],
+ 'SEMBAWANG': ['ADMIRALTY', 'CANBERRA'],
+ 'SENGKANG': ['BUANGKOK', 'PUNGGOL'],
+ 'SERANGOON': ['BARTLEY', 'LORONG CHUAN', 'WOODLEIGH', 'KOVAN'],
+ 'SHENTON WAY': ['MAXWELL', 'MARINA BAY'],
+ 'SIGLAP': ['MARINE TERRACE', 'BAYSHORE'],
+ 'SIMEI': ['TAMPINES', 'TANAH MERAH'],
+ 'SIXTH AVENUE': ['KING ALBERT PARK', 'TAN KAH KEE'],
+ 'SOMERSET': ['ORCHARD', 'DHOBY GHAUT'],
+ 'SPRINGLEAF': ['WOODLANDS SOUTH', 'LENTOR'],
+ 'STADIUM': ['NICOLL HIGHWAY', 'MOUNTBATTEN'],
+ 'STEVENS': ['MOUNT PLEASANT', 'NAPIER', 'BOTANIC GARDENS', 'NEWTON'],
+ 'SUNGEI BEDOK': ['BEDOK SOUTH'],
+ 'TAI SENG': ['MACPHERSON', 'BARTLEY'],
+ 'TAMPINES': ['TAMPINES WEST', 'TAMPINES EAST', 'PASIR RIS', 'SIMEI'],
+ 'TAMPINES EAST': ['TAMPINES', 'UPPER CHANGI'],
+ 'TAMPINES WEST': ['BEDOK RESERVOIR', 'TAMPINES'],
+ 'TAN KAH KEE': ['SIXTH AVENUE', 'BOTANIC GARDENS'],
+ 'TANAH MERAH': ['EXPO', 'SIMEI', 'BEDOK'],
+ 'TANJONG KATONG': ['KATONG PARK', 'MARINE PARADE'],
+ 'TANJONG PAGAR': ['RAFFLES PLACE', 'OUTRAM PARK'],
+ 'TANJONG RHU': ["FOUNDERS' MEMORIAL", 'KATONG PARK'],
+ 'TELOK AYER': ['DOWNTOWN', 'CHINATOWN'],
+ 'TELOK BLANGAH': ['LABRADOR PARK', 'HARBOURFRONT'],
+ 'TIONG BAHRU': ['OUTRAM PARK', 'REDHILL'],
+ 'TOA PAYOH': ['BRADDELL', 'NOVENA'],
+ 'TUAS CRESCENT': ['GUL CIRCLE', 'TUAS WEST ROAD'],
+ 'TUAS LINK': ['TUAS WEST ROAD'],
+ 'TUAS WEST ROAD': ['TUAS CRESCENT', 'TUAS LINK'],
+ 'UBI': ['MACPHERSON', 'KAKI BUKIT'],
+ 'UPPER CHANGI': ['TAMPINES EAST', 'EXPO'],
+ 'UPPER THOMSON': ['BRIGHT HILL', 'CALDECOTT'],
+ 'WOODLANDS': ['WOODLANDS NORTH', 'WOODLANDS SOUTH', 'MARSILING', 'ADMIRALTY'],
+ 'WOODLANDS NORTH': ['WOODLANDS'],
+ 'WOODLANDS SOUTH': ['WOODLANDS', 'SPRINGLEAF'],
+ 'WOODLEIGH': ['POTONG PASIR', 'SERANGOON'],
+ 'YEW TEE': ['CHOA CHU KANG', 'KRANJI'],
+ 'YIO CHU KANG': ['KHATIB', 'ANG MO KIO'],
+ 'YISHUN': ['CANBERRA', 'KHATIB']
+ }
+ 
+station_lines: dict = {} # {'CITY HALL': ['EW',NS']}
+
+for line, struct in mrt_struct.items():
+    for station in struct['path']:
+        if station not in station_lines:
+            station_lines[station] = [line]
+        else:
+            station_lines[station].append(line)
+
+#print(station_lines)
+
+def bfs_all_paths(graph: dict, start_station: str ,end_station: str) -> list: # list of list(paths)
+    start_station = start_station.upper()
+    end_station = end_station.upper()
+    queue: list = [[start_station]] # list of path
+    #visited: list  = []
+    paths: list = [] # list of all possible paths
+    path: list = []
+    while queue:
+        #print(f"Queue : {queue}")
+        path = queue.pop(0)
+        #print(f"Path : {path}")
+        last_station = path[-1]
+
+        #if last_station not in visited:
+        #    visited.append(last_station)
+
+        if last_station == end_station:
+            paths.append(path)
+            #return path
+        else:
+            for neighbour in graph[last_station]:
+                if neighbour not in path:
+                    new_path = path + [neighbour]
+                    queue.append(new_path)
+    #return None
+    return paths
+
+def bfs_all_shortest_paths(graph: dict, start_station: str, end_station: str) -> list:
+    start_station = start_station.upper()
+    end_station = end_station.upper()
+    
+    queue = [[start_station]]
+    all_paths = []
+    shortest_len = None
+
+    while queue:
+        path = queue.pop(0)
+        last_station = path[-1]
+
+        if last_station == end_station:
+            if shortest_len is None:
+                shortest_len = len(path)
+                all_paths.append(path)
+            elif len(path) == shortest_len:
+                all_paths.append(path)
+            elif len(path) > shortest_len:
+                # No need to continue; paths are longer now
+                break
+        else:
+            for neighbor in graph[last_station]:
+                if neighbor not in path:  # avoid cycles
+                    new_path = path + [neighbor]
+                    queue.append(new_path)
+
+    return all_paths
+
+#def count_line_changes(path, station_lines):
+#    if len(path) < 2:
+#        return 0
+#
+#    first, second = path[0], path[1]
+#    possible_lines = list(set(station_lines.get(first,[])) & set(station_lines.get(second,[])))
+#
+#    if not possible_lines:  # path is disconnected
+#        return float('inf')
+
+def count_line_changes(path, station_lines):
+    if len(path) < 2:
+        return 0
+
+    first, second = path[0], path[1]
+    possible_lines = list(set(station_lines.get(first, [])) & set(station_lines.get(second, [])))
+
+    if not possible_lines:
+        return float('inf')
+
+    min_changes = float('inf')
+
+    for initial_line in possible_lines:
+        changes = 0
+        current_line = initial_line
+
+        for i in range(1, len(path)):
+            prev = path[i - 1]
+            curr = path[i]
+            prev_lines = station_lines.get(prev, [])
+            curr_lines = station_lines.get(curr, [])
+
+            if current_line in prev_lines and current_line in curr_lines:
+                continue  # No change needed
+            else:
+                shared = set(prev_lines) & set(curr_lines)
+                if shared:
+                    current_line = list(shared)[0]
+                    changes += 1
+                else:
+                    return float('inf')  # Invalid switch
+
+        min_changes = min(min_changes, changes)
+
+    return min_changes
+
+#def select_least_line_change_path(all_paths, station_lines):
+#    pass
+
+
+#paths = bfs_all_shortest_paths(graph, 'CITY HALL', 'TUAS LINK') # should return list of all possible paths
+
+#with open('output.txt', 'w') as f:
+#    for path in paths:
+#        f.write('->'.join(map(str, path)) + '\n')
+
+paths = bfs_all_shortest_paths(graph, 'LAVENDER', 'TUAS LINK') # should return list of all possible paths
+#bfs_all_shortest_paths
+#print(paths)
+#print(len(paths))
+
+for path in paths:
+    print(path)
+    print(count_line_changes(path, station_lines))
+
+
+
