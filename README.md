@@ -46,3 +46,7 @@ python3 main.py
 - [OpenStreetMap Singapore Rail Data](https://www.openstreetmap.org/)
 - [Singapore MRT Station Codes and Data](https://www.transitlink.com.sg/)
 - [OpenRouteService API](https://openrouteservice.org)
+- [Breadth First Search Algorithm Visualization](https://youtu.be/xlVX7dXLS64?si=KpHjRDwCiMgL1ZGV)
+- [Breadth First Search Algorithm Lecture](https://youtu.be/pcKY4hjDrxk?si=Ip5uAggWFCaN9NMl)
+- [Graph Theory](https://youtu.be/oDqjPvD54Ss?si=23dTyeoDfkiujbp9)
+
