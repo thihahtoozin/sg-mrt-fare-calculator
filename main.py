@@ -4,6 +4,7 @@ from display_stations import *
 from api_request import calc_distance_mrt
 from fare_calc import *
 from find_paths import *
+from display_path import *
 
 # static variables
 config_dir: str = 'config/mrt_lines/'
@@ -23,8 +24,6 @@ mrt_struct: dict = {}           # stores station informations
 #           'start_index': 1,
 #          }
 #    }
-#intchgs: dict = {}             # stores interchange stations
-#start_index = {}                # stores the starting station indexes for each line
 combined_lines: list = []       # stores combined list of all stations registered under `config/`
 mrt_lines: list = []            # stores a list of all registered mrt lines
 
@@ -32,7 +31,6 @@ def read_files() -> None: # read files and fill up our dict `mrt_struct`, list `
 
     # declaring global variables to avoid creating local variables with the same name
     global mrt_struct
-    #global intchgs
     global combined_lines
     global mrt_lines
     global config_dir
@@ -113,7 +111,7 @@ def main():
             min_changes = changes
             best_path = path
     print(best_path)
-    print(f"Line changes : {min_changes}")
+    print(f"Line change(s) : {min_changes}")
 
     #print(f"Ending station : {end_station_name}")
     num_h = len(best_path)-1
@@ -125,10 +123,14 @@ def main():
     price_ranges: list = load_prices(price_scheme)
     price = fare_calc(price_ranges, distance, discount_percent)
 
+    annotated_path = annotate_path(best_path, station_lines)
+
     print(f"Distance : {distance:.2f}")
     print(f"Duration : {duration:.2f}")
     print(f"Discount : {discount_percent * 100}%")
     print(f"Price : {price:.2f}")
+
+    print(annotated_path)
 
 if __name__ == '__main__':
     main()
