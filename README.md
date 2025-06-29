@@ -17,6 +17,11 @@ git clone https://github.com/thihahtoozin/sg-mrt-fare-calculator.git
 cd sg-mrt-route-finder
 ```
 
+Install dependencies
+```
+pip install -r requirements.txt
+```
+
 run `main.py` file
 ```
 python3 main.py
