@@ -9,7 +9,7 @@ def arrival_time_calc(duration: float, format_print: bool): # takes duration in 
 
     arrival_time = now_in_mins + duration
     if format_print:
-        time_now = f"{hour}:{minute % 60}"
+        time_now = f"{hour}:{minute % 60:02d}"
         arrival_time = f"{int(arrival_time / 60)}:{int(arrival_time % 60):02d}"
 
     return (time_now, arrival_time)

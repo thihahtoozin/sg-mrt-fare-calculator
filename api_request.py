@@ -7,7 +7,7 @@ api_key_file: str = 'config/api_key.txt'
 with open(api_key_file) as f:
     api_key = [ line.strip() for line in f.readlines() if line != '\n' ][0]
 #api_key = '5b3ce3597851110001cf624812782a91d0ba4c469745e9af84f34936'
-print(api_key)
+#print(api_key)
 
 def get_coordinates(station_name: str) -> list:
     url = "https://api.openrouteservice.org/geocode/search"
@@ -53,6 +53,7 @@ def calc_distance_mrt(start: str, end: str):
         data = response.json()
         #pprint(data)
         distance = data['routes'][0]['summary']['distance']/1000 if data['routes'][0]['summary'] != {} else 0 # m -> km
+        duration = data['routes'][0]['summary']['duration']/60 # s -> min
     else:
         print(f"Error: {response.status_code}")
         print(response.text)

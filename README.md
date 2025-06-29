@@ -7,6 +7,7 @@ This project helps you calculate the shortest route between two MRT stations in 
 
 ## Features
 - Display Paths
+- Estimate Arrival Time
 
 ## How It Works
 1. Parses station names from text files under `config/` directory

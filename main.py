@@ -114,7 +114,7 @@ def main():
     num_h = len(best_path)-1
     distance, duration = calc_distance_mrt(start_station_name, end_station_name)
     distance = round(distance,1)
-    time_now, arrival_time = arrival_time_calc(distance, True)
+    time_now, arrival_time = arrival_time_calc(duration, True)
 
     discount_percent = discount_calc()
     price_ranges: list = load_prices(price_scheme)
@@ -126,8 +126,8 @@ def main():
     print("-" * 50)
     print(f"Starting station : '{start_station_name}':{start_station_line}:{start_station_code}")
     print(f"Ending station : '{end_station_name}':{end_station_line}:{end_station_code}")
-    print(f"Distance : {distance:.2f}")
-    print(f"Duration : {duration:.2f}")
+    print(f"Distance : {distance:.2f} km")
+    print(f"Duration : {duration:.2f} mins")
     print(f"Time now : {time_now}")
     print(f"Estimated arrival time : {arrival_time}")
     print()
