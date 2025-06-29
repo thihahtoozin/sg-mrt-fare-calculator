@@ -53,12 +53,7 @@ def prompt_question(mrt_struct: dict, c_stations_l: list, starting: bool = True)
     #print(user_input)
 
     # Understanding the user input and Returning the correct station code
-    # NEED TO IMPLEMENT USER INPUT VALIDATION 
-    # INDEX OUT OF RANGE - DONE
-    # INVALID STATION CODE - NEEDED
-    # INVALID STATION NAME - NEEDED
     if user_input.isdigit(): # for index number
-        #print("Digit")
         try:
             user_input = c_stations_l[int(user_input) - 1].split()[1:-1] 
             user_input = ' '.join(user_input)
@@ -74,7 +69,6 @@ def prompt_question(mrt_struct: dict, c_stations_l: list, starting: bool = True)
             return '-1'
 
     elif user_input[:2].isalpha() and user_input[2:].isdigit(): # for station code
-        #print("Station Code")
         for line_struct in mrt_struct.values():
             if user_input in line_struct['codes']:
                 response_code = user_input
@@ -82,7 +76,7 @@ def prompt_question(mrt_struct: dict, c_stations_l: list, starting: bool = True)
         return '-1'
 
     else: # for string
-        #print("String")
+        user_input = " ".join(user_input.split())  # formatting string for extra spaces 
         for line, line_struct in mrt_struct.items():
             path = [ s.upper() for s in line_struct['path'] ]
             #print(path)

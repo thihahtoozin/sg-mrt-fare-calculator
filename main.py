@@ -5,6 +5,7 @@ from api_request import calc_distance_mrt
 from fare_calc import *
 from find_paths import *
 from display_path import *
+from arrival_time import *
 
 # static variables
 config_dir: str = 'config/mrt_lines/'
@@ -93,16 +94,13 @@ def main():
     start_station_line, _, start_station_name = get_station(start_station_code)
     end_station_line, _, end_station_name = get_station(end_station_code)
 
-    print(f"Starting station : '{start_station_name}':{start_station_line}:{start_station_code}")
-    print(f"Ending station : '{end_station_name}':{end_station_line}:{end_station_code}")
-
     # building the `graph` to calculate 
     graph: dict = build_graph([struct['path'] for struct in mrt_struct.values()])
     # building the `station_lines`
     station_lines: dict = build_station_lines(mrt_struct)
 
     # finding the best path
-    paths = bfs_top_shortest_paths(5, graph, start_station_name, end_station_name)
+    paths = bfs_top_shortest_paths(5, graph, start_station_name, end_station_name) # top 5 paths 
     min_changes = float('inf')
     best_path = []
     for path in paths:
@@ -110,14 +108,13 @@ def main():
         if changes < min_changes:
             min_changes = changes
             best_path = path
-    print(best_path)
-    print(f"Line change(s) : {min_changes}")
+    #print(best_path)
 
     #print(f"Ending station : {end_station_name}")
     num_h = len(best_path)-1
-    print(f"Num hops : {num_h}")
     distance, duration = calc_distance_mrt(start_station_name, end_station_name)
     distance = round(distance,1)
+    time_now, arrival_time = arrival_time_calc(distance, True)
 
     discount_percent = discount_calc()
     price_ranges: list = load_prices(price_scheme)
@@ -125,12 +122,27 @@ def main():
 
     annotated_path = annotate_path(best_path, station_lines)
 
+    print("Route Summary Report")
+    print("-" * 50)
+    print(f"Starting station : '{start_station_name}':{start_station_line}:{start_station_code}")
+    print(f"Ending station : '{end_station_name}':{end_station_line}:{end_station_code}")
     print(f"Distance : {distance:.2f}")
     print(f"Duration : {duration:.2f}")
+    print(f"Time now : {time_now}")
+    print(f"Estimated arrival time : {arrival_time}")
+    print()
+
+    print("Pricing")
+    print("-" * 50)
     print(f"Discount : {discount_percent * 100}%")
     print(f"Price : {price:.2f}")
+    print()
 
+    print("Route")
+    print("-" * 50)
     print(annotated_path)
+    print(f"Num hops : {num_h}")
+    print(f"Line change(s) : {min_changes}")
 
 if __name__ == '__main__':
     main()

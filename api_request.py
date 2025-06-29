@@ -52,8 +52,7 @@ def calc_distance_mrt(start: str, end: str):
     if response.status_code == 200:
         data = response.json()
         #pprint(data)
-        distance = data['routes'][0]['summary']['distance']/1000 # m -> km
-        duration = data['routes'][0]['summary']['duration']/60 # s -> min
+        distance = data['routes'][0]['summary']['distance']/1000 if data['routes'][0]['summary'] != {} else 0 # m -> km
     else:
         print(f"Error: {response.status_code}")
         print(response.text)

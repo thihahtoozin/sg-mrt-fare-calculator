@@ -5,6 +5,9 @@
 ## Introduction
 This project helps you calculate the shortest route between two MRT stations in Singapore and supports multiple MRT lines, including interchanges.
 
+## Features
+- Display Paths
+
 ## How It Works
 1. Parses station names from text files under `config/` directory
 2. Constructs an adjacency list (graph) from each line.
